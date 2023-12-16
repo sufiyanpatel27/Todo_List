@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const path = require('path'); // Add this line for handling file paths
 const dotenv = require('dotenv')
 dotenv.config();
 const database_url = process.env.DATABASE_URL;
@@ -14,7 +13,9 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect(database_url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(database_url, { useNewUrlParser: true, useUnifiedTopology: true }).then(
+  console.log("database connected successfully")
+);
 
 // Create Todo Schema and Model
 const todoSchema = new mongoose.Schema({
