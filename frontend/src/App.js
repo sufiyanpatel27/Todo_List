@@ -10,9 +10,11 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [showCompleted, setShowCompleted] = useState(false);
 
+  const base_url = "https://todo-list-wbyp.onrender.com"
+
   useEffect(() => {
     // Fetch Todos from Backend
-    axios.get('http://localhost:5000/todos')
+    axios.get(base_url + '/todos')
       .then(response => setTodos(response.data))
       .catch(error => console.error('Error fetching todos:', error));
   }, []);
@@ -24,7 +26,7 @@ const App = () => {
     }
 
     // Add Todo to Backend
-    axios.post('http://localhost:5000/todos', { text, completed: false })
+    axios.post(base_url + '/todos', { text, completed: false })
       .then(response => {
         setTodos([...todos, response.data]);
         setText('');
@@ -35,7 +37,7 @@ const App = () => {
 
   const deleteTodo = (id) => {
     // Delete Todo from Backend
-    axios.delete(`http://localhost:5000/todos/${id}`)
+    axios.delete(base_url + `/todos/${id}`)
       .then(response => {
         setTodos(todos.filter(todo => todo._id !== id));
       })
@@ -44,7 +46,7 @@ const App = () => {
 
   const updateCompletionStatus = (id, completed) => {
     // Update Completion Status to Backend
-    axios.put(`http://localhost:5000/todos/${id}`, { completed })
+    axios.put(base_url + `/todos/${id}`, { completed })
       .then(response => {
         const updatedTodos = todos.map(todo =>
           todo._id === id ? { ...todo, completed: response.data.completed } : todo
