@@ -14,6 +14,7 @@ const App = () => {
 
   useEffect(() => {
     // Fetch Todos from Backend
+    console.log("yes")
     axios.get(base_url + '/todos')
       .then(response => setTodos(response.data))
       .catch(error => console.error('Error fetching todos:', error));
